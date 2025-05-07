@@ -26,11 +26,11 @@
         <!-- Products Table -->
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-4 bg-dark text-white">
-                    <div class="card-header d-flex justify-content-between align-items-center bg-dark text-white border-bottom border-secondary">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Products Directory</h5>
                         <div>
-                            <select class="form-select form-select-sm sort-select bg-dark text-white border-secondary" id="sortSelect">
+                            <select class="form-select form-select-sm sort-select" id="sortSelect">
                                 <option value="status_name_asc">Status & Name (A-Z)</option>
                                 <option value="status_name_desc">Status & Name (Z-A)</option>
                                 <option value="status_stock_low">Status & Low Stock First</option>
@@ -40,9 +40,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="card-body p-0 bg-dark">
+                    <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle data-table table-dark" id="productsTable">
+                            <table class="table table-hover align-middle data-table" id="productsTable">
                                 <thead>
                                     <tr>
                                         <th scope="col" width="25%">Product</th>
@@ -70,30 +70,30 @@
                                                 <div class="product-image-container me-3" style="width: 40px; height: 40px;">
                                                     @if($product->image && file_exists(public_path($product->image)))
                                                         <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" 
-                                                            class="img-thumbnail bg-dark" style="width: 40px; height: 40px; object-fit: cover;">
+                                                            class="img-thumbnail" style="width: 40px; height: 40px; object-fit: cover;">
                                                     @else
-                                                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                                    <i class="fas fa-box text-white"></i>
+                                                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-box text-primary"></i>
                                                         </div>
                                                     @endif
                                                 </div>
                                                 <div>
-                                                    <strong class="text-white">{{ $product->name }}</strong>
+                                                    <strong>{{ $product->name }}</strong>
                                                     @if($product->brand)
-                                                    <div class="small text-light">{{ $product->brand }}</div>
+                                                    <div class="small text-secondary-subtle">{{ $product->brand }}</div>
                                                     @endif
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-light">{{ $product->category->name }}</td>
+                                        <td>{{ $product->category->name }}</td>
                                         <td><span class="badge bg-secondary">{{ $product->sku }}</span></td>
-                                        <td class="text-light">₱{{ number_format($product->price, 2) }}</td>
+                                        <td>₱{{ number_format($product->price, 2) }}</td>
                                         <td>
                                             <span class="badge {{ $product->stock == 0 ? 'bg-danger text-white' : ($product->stock <= $product->reorder_level ? 'bg-warning text-white' : 'bg-success text-white') }} fs-6">
                                                 {{ $product->stock }}
                                             </span>
                                         </td>
-                                        <td class="text-light">{{ $product->reorder_level }}</td>
+                                        <td>{{ $product->reorder_level }}</td>
                                         <td>
                                             <span class="badge {{ $product->is_active ? 'bg-success' : 'bg-secondary' }}">
                                                 {{ $product->is_active ? 'Active' : 'Inactive' }}
@@ -101,7 +101,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group btn-group-sm">
-                                                <button class="btn btn-sm btn-outline-light edit-product" title="Edit Product" data-bs-toggle="modal" data-bs-target="#editProductModal" data-product-id="{{ $product->id }}">
+                                                <button class="btn btn-sm btn-outline-primary edit-product" title="Edit Product" data-bs-toggle="modal" data-bs-target="#editProductModal" data-product-id="{{ $product->id }}">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 @if($product->is_active)
@@ -121,8 +121,8 @@
                                         <td colspan="8" class="text-center py-5">
                                             <div class="no-data-message">
                                                 <i class="fas fa-box-open fa-3x mb-3" style="color: var(--accent);"></i>
-                                                <h6 class="fw-normal text-white">No products found</h6>
-                                                <p class="small mb-0 text-light">Add your first product to get started</p>
+                                                <h6 class="fw-normal">No products found</h6>
+                                                <p class="small mb-0" style="color: rgba(255, 255, 255, 0.6);">Add your first product to get started</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -131,9 +131,9 @@
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer bg-dark text-white border-top border-secondary">
+                    <div class="card-footer">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span id="product-count" class="text-light">Showing {{ $products->firstItem() ?? 0 }} to {{ $products->lastItem() ?? 0 }} of {{ $products->total() ?? 0 }} products</span>
+                            <span id="product-count">Showing {{ $products->firstItem() ?? 0 }} to {{ $products->lastItem() ?? 0 }} of {{ $products->total() ?? 0 }} products</span>
                             {{ $products->links() }}
                         </div>
                     </div>
@@ -480,8 +480,8 @@
                                 <td colspan="8" class="text-center py-5">
                                     <div class="no-data-message">
                                         <i class="fas fa-search fa-3x mb-3" style="color: var(--accent);"></i>
-                                        <h6 class="fw-normal text-white">No matching products found</h6>
-                                        <p class="small mb-0 text-light">Try adjusting your search criteria</p>
+                                        <h6 class="fw-normal">No matching products found</h6>
+                                        <p class="small mb-0">Try adjusting your search criteria</p>
                                     </div>
                                 </td>
                             `;
@@ -804,41 +804,64 @@
             opacity: 1;
         }
 
-        /* Dark theme pagination styling */
-        .pagination {
-            --bs-pagination-color: #fff;
-            --bs-pagination-bg: #343a40;
-            --bs-pagination-border-color: #495057;
-            --bs-pagination-hover-color: #fff;
-            --bs-pagination-hover-bg: #495057;
-            --bs-pagination-hover-border-color: #6c757d;
-            --bs-pagination-focus-color: #fff;
-            --bs-pagination-focus-bg: #495057;
-            --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
-            --bs-pagination-active-color: #000;
-            --bs-pagination-active-bg: var(--accent);
-            --bs-pagination-active-border-color: var(--accent);
-            --bs-pagination-disabled-color: #6c757d;
-            --bs-pagination-disabled-bg: #343a40;
-            --bs-pagination-disabled-border-color: #495057;
+        /* New styles for full-height layout */
+        .container-fluid {
+            height: calc(100vh - 100px); /* Increased from 80px to 100px to add more bottom margin */
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 1.5rem; /* Increased padding at bottom */
         }
-        
-        /* Custom styling for product cards */
-        .product-card {
-            background-color: #2A2A2A;
-            border-color: #495057;
+
+        .row:not(.mb-4) {
+            flex: 1;
+            min-height: 0; /* Important for Firefox */
+            margin-bottom: 1rem; /* Added margin to bottom of rows */
         }
-        
-        .product-card .card-title,
-        .product-card .card-text,
-        .product-card .price {
-            color: #fff;
+
+        .card.mb-4 {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
-        
-        /* Make images in dark theme have dark background */
-        .img-thumbnail {
-            background-color: #343a40;
-            border-color: #495057;
+
+        .card-body {
+            flex: 1;
+            padding: 0;
+            overflow: hidden;
+            min-height: 0; /* Ensures proper flex behavior */
+        }
+
+        .table-responsive {
+            height: 100%;
+            max-height: none;
+        }
+
+        /* Custom scrollbar styles */
+        .table-responsive::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Keep header visible */
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            z-index: 1;
         }
     </style>
     @endpush
